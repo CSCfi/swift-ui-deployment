@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    role: swiftrequest
+  name: swiftrequest
+spec:
+  selector:
+    matchLabels:
+      app: swiftrequest
+  template:
+    metadata:
+      labels:
+        app: swiftrequest
+        role: swiftrequest
+    spec:
+      containers:
+        - image: 'cscfi/swift-sharing-request:prod'
+          imagePullPolicy: Always
+          name: swiftsharing
+          ports:
+            - containerPort: 9091
+              name: swiftrequest
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: swiftrequest
+  labels:
+    app: swiftrequest
+spec:
+  type: NodePort
+  ports:
+  - port: 9091
+    targetPort: 9091
+    protocol: TCP
+    name: web
+  selector:
+    app: swiftrequest
+

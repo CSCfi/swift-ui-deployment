@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    role: swiftsharing
+  name: swiftsharing
+spec:
+  selector:
+    matchLabels:
+      app: swiftsharing
+  template:
+    metadata:
+      labels:
+        app: swiftsharing
+        role: swiftsharing
+    spec:
+      containers:
+        - image: 'cscfi/swift-x-account-sharing:testing'
+          imagePullPolicy: Always
+          name: swiftsharing
+          ports:
+            - containerPort: 9090
+              name: swiftsharing
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: swiftsharing
+  labels:
+    app: swiftsharing
+spec:
+  type: NodePort
+  ports:
+  - port: 9090
+    targetPort: 9090
+    protocol: TCP
+    name: web
+  selector:
+    app: swiftsharing
+

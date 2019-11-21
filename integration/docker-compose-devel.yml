@@ -1,0 +1,79 @@
+version: '3.3'
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-postgres-inited
+    image: postgres-swiftui:9.6
+    volumes:
+    - data-volume:/swiftbrowser-database
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 240s
+    env_file: ./envs.txt
+    expose:
+      - 5432
+  request:
+    build: 
+      context: https://github.com/CSCfi/swift-sharing-request.git#devel
+    image: swift-sharing-request-docker:devel
+    deploy:
+      mode: replicated
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 240s
+    links:
+      - "db:database"
+    env_file: ./envs.txt
+    ports:
+      - 9091:9091
+  sharing:
+    build: 
+      context: https://github.com/CSCfi/swift-x-account-sharing.git#devel
+    image: swift-x-account-sharing-docker:devel
+    deploy:
+      mode: replicated
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 240s
+    links:
+      - "db:database"
+    env_file: ./envs.txt
+    ports:
+      - 9090:9090
+  ui:
+    build: 
+      context: https://github.com/CSCfi/swift-browser-ui.git#devel
+    image: swift-browser-ui:devel
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 240s
+    env_file: ./envs.txt
+    ports:
+      - 8080:8080
+volumes:
+  data-volume:
