@@ -15,7 +15,7 @@ spec:
         role: swiftui
     spec:
       containers:
-        - image: 'cscfi/swift-ui:testing'
+        - image: 'cscfi/swift-ui:test'
           imagePullPolicy: Always
           name: swiftui
           ports:

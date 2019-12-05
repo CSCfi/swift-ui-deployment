@@ -15,7 +15,7 @@ spec:
         role: swiftsharing
     spec:
       containers:
-        - image: 'cscfi/swift-x-account-sharing:testing'
+        - image: 'cscfi/swift-x-account-sharing:test'
           imagePullPolicy: Always
           name: swiftsharing
           ports:
