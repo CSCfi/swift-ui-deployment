@@ -14,10 +14,16 @@ spec:
         app: swiftui
         role: swiftui
     spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
       containers:
         - image: 'cscfi/swift-ui:test'
           imagePullPolicy: Always
           name: swiftui
+          securityContext:
+            allowPrivilegeEscalation: false
           ports:
             - containerPort: 8080
               name: swiftui

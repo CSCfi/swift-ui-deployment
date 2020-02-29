@@ -14,10 +14,16 @@ spec:
         app: swiftrequest
         role: swiftrequest
     spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
       containers:
         - image: 'cscfi/swift-sharing-request:test'
           imagePullPolicy: Always
           name: swiftsharing
+          securityContext:
+            allowPrivilegeEscalation: false
           ports:
             - containerPort: 9091
               name: swiftrequest
