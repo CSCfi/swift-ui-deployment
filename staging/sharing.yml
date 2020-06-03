@@ -1,0 +1,27 @@
+# swift-x-account-sharing app description file for deploying on Openshift
+# This deployment file is meant to be used as a staging version
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    role: swiftsharing-staging
+  name: swiftsharing-staging
+spec:
+  selector:
+    matchLabels:
+      app: swiftsharing-staging
+  template:
+    metadata:
+      labels:
+        app: swiftsharing-staging
+        role: swiftsharing-staging
+    spec:
+      containers:
+        - image: 'cscfi/swift-x-account-sharing:test'
+          imagePullPolicy: Always
+          name: swiftsharing-staging
+          ports:
+            - containerPort: 9090
+              name: swiftsharing-staging
+              protocol: TCP
