@@ -18,7 +18,7 @@ spec:
         role: upload-staging
     spec:
       containers:
-        - image: 'cscfi/swiftui-upload-runner:v1.0.0-rc1-staging-0000'
+        - image: 'cscfi/swiftui-upload-runner:tag'
           imagePullPolicy: Always
           name: upload-staging
           ports:

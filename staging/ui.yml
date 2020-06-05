@@ -18,7 +18,7 @@ spec:
         role: swiftui-staging
     spec:
       containers:
-        - image: 'cscfi/swift-ui:test'
+        - image: 'cscfi/swift-ui:tag'
           imagePullPolicy: Always
           name: swiftui-staging
           ports:

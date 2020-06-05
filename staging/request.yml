@@ -18,7 +18,7 @@ spec:
         role: swiftrequest-staging
     spec:
       containers:
-        - image: 'cscfi/swift-sharing-request:test'
+        - image: 'cscfi/swift-sharing-request:tag'
           imagePullPolicy: Always
           name: swiftsharing
           ports:
