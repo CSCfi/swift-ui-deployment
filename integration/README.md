@@ -30,3 +30,9 @@ $ docker-compose -f docker-compose-production.yml up
 ```
 The use of `--no-cache` -flag is required due to the use of git repositories
 as build contexts.
+
+#### Database
+The services `swift-x-account-sharing` and `swift-sharing-request` require a
+correctly formatted database for a working environment. The creation of such
+database is documented in the shell script `init-project-db.sh` which is
+contained in this repository.
