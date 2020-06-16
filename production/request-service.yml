@@ -1,0 +1,18 @@
+# swift-sharing-request service description for deploying on Openshift
+# This service file is meant to be used as a production version
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: swiftrequest
+  labels:
+    app: swiftrequest
+spec:
+  type: NodePort
+  ports:
+  - port: 9091
+    targetPort: 9091
+    protocol: TCP
+    name: web
+  selector:
+    app: swiftrequest

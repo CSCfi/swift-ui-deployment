@@ -1,3 +1,6 @@
+# swift-browser-ui app description file for deploying on Openshift
+# This deployment file is meant to be used as a production version
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,26 +18,10 @@ spec:
         role: swiftui
     spec:
       containers:
-        - image: 'cscfi/swift-ui:prod'
+        - image: 'cscfi/swift-ui:tag'
           imagePullPolicy: Always
           name: swiftui
           ports:
             - containerPort: 8080
               name: swiftui
               protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: swiftui
-  labels:
-    app: swiftui
-spec:
-  type: NodePort
-  ports:
-  - port: 8080
-    targetPort: 8080
-    protocol: TCP
-    name: web
-  selector:
-    app: swiftui

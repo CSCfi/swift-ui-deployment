@@ -1,3 +1,6 @@
+# swift-x-account-sharing app description file for deploying on Openshift
+# This deployment file is meant to be used as a production version
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,27 +18,10 @@ spec:
         role: swiftsharing
     spec:
       containers:
-        - image: 'cscfi/swift-x-account-sharing:prod'
+        - image: 'cscfi/swift-x-account-sharing:tag'
           imagePullPolicy: Always
           name: swiftsharing
           ports:
             - containerPort: 9090
               name: swiftsharing
               protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: swiftsharing
-  labels:
-    app: swiftsharing
-spec:
-  type: NodePort
-  ports:
-  - port: 9090
-    targetPort: 9090
-    protocol: TCP
-    name: web
-  selector:
-    app: swiftsharing
-
