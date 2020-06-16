@@ -1,12 +1,12 @@
-### .yml files for staging UI services on Openshift
+### .yml files for production UI services on Openshift
 
 ### Usage
 Apart from the internal database, the services `swift-x-account-sharing`,
 `swift-sharing-request`, `swiftui-upload-runner` and `swift-browser-ui`
-are deployed using images hosted on Docker Hub. The Docker Hub images for
-staging builds are encouraged to use build numbering, since forcing
-Openshift to re-pull the images using the same tag is a workaround instead of
-a proper behavior.
+are deployed using images hosted on Docker Hub. The Docker Hub images for the
+production builds are encouraged to use the tagged, versioned builds
+available on the repository. (e.g. `v1.0.0`) Forcing the re-pull of an
+image with a running version is not adviced.
 
 #### internal database setup
 Internal database is created with the Openshift default PostgreSQL image.
@@ -22,7 +22,7 @@ the pod terminal on Openshift.
 the file `request-database.sh`, by executing the contents of the script in
 the pod terminal on Openshift.
 
-#### swift-x-account-sharing staging setup
+#### swift-x-account-sharing production setup
 `swift-x-account-sharing` can be deployed with an image from Docker Hub, using
 the file `sharing.yml`. The following environment variables need to be
 specified in order for the image to function:
@@ -31,7 +31,7 @@ specified in order for the image to function:
     - `SHARING_DB_PASSWORD` for the database password
     - `SWIFT_UI_API_AUTH_TOKENS` for the global API access tokens
 
-#### swift-sharing-request staging setup
+#### swift-sharing-request production setup
 `swift-sharing-request` can be deployed with an image from Docker Hub, using
 the file `request.yml`. The following environment variables need to be
 specified in order for the image to function:
@@ -40,7 +40,7 @@ specified in order for the image to function:
     - `REQUEST_DB_PASSWORD` for the database password
     - `SWIFT_UI_API_AUTH_TOKENS` for the global API access tokens
 
-#### swiftui-upload-runner staging setup
+#### swiftui-upload-runner production setup
 `swiftui-upload-runner` can be deployed with an image from Docker Hub, using
 the file `upload.yml`. The following environment variables need to be
 specified in order for the image to function:
@@ -48,7 +48,7 @@ specified in order for the image to function:
     - `OS_AUTH_URL` for the Openstack authentication URL
     - `SWIFT_UI_API_AUTH_TOKENS` for the global API access tokens
 
-#### swift-browser-ui staging setup
+#### swift-browser-ui production setup
 `swift-browser-ui` can be deployed with an image from Docker Hub, using the
 file `ui.yml`. The following environment variables need to be specified in
 order for the image to function:
@@ -66,9 +66,8 @@ order for the image to function:
       hostname of the sharing API
     - `BROWSER_START_REQUEST_INT_ENDPOINT_URL` for the internal address /
       hostname of the request API
-    - `BROWSER_DEBUG` for enabling the debug logs for staging instance
 
-#### Staging environment services
+#### Production environment services
 All services need to be present in order for the `swift-browser-ui` to work
 as intended. The service descriptions can be foun from their respective YAML
 files and can be imported from there.
@@ -81,8 +80,8 @@ scope of this readme. The routes can be chosen at will, but the required ones
 need to be transfered over to the `swift-browser-ui` environment variables so
 they can be made discoverable.
 
-#### Staging environment upgrade
-The staging environment services can be uploaded by switching over to the
-new build tag, by editing the service YAML on Openshift. The upgrade can
+#### Production environment upgrade
+The production environment services can be uploaded by switching over to the
+new version tag, by editing the service YAML on Openshift. The upgrade can
 be forced to the currently used tag by scaling pod number to zero and forcing
 the re-pull of the tag, but this is not the preferred way.
