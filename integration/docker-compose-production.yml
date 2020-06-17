@@ -8,71 +8,39 @@ services:
     image: postgres-swiftui:9.6
     volumes:
     - data-volume:/swiftbrowser-database
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 5
-        window: 240s
-    env_file: ./envs.txt
+    env_file: ./envs.sh
     expose:
       - 5432
+  download:
+    build:
+      context: https://github.com/CSCfi/swiftui-upload-runner.git#v0.1.1
+    image: swiftui-upload-runner-docker:prouction
+    env_file: ./envs.sh
+    ports:
+      - 9092:9092
   request:
     build: 
-      context: https://github.com/CSCfi/swift-sharing-request.git
-    image: swift-sharing-request-docker:devel
-    deploy:
-      mode: replicated
-      replicas: 4
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 5
-        window: 240s
+      context: https://github.com/CSCfi/swift-sharing-request.git#v0.4.2
+    image: swift-sharing-request-docker:production
     links:
       - "db:database"
-    env_file: ./envs.txt
+    env_file: ./envs.sh
     ports:
       - 9091:9091
   sharing:
     build: 
-      context: https://github.com/CSCfi/swift-x-account-sharing.git
-    image: swift-x-account-sharing-docker:devel
-    deploy:
-      mode: replicated
-      replicas: 4
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 5
-        window: 240s
+      context: https://github.com/CSCfi/swift-x-account-sharing.git#v0.5.3
+    image: swift-x-account-sharing-docker:production
     links:
       - "db:database"
-    env_file: ./envs.txt
+    env_file: ./envs.sh
     ports:
       - 9090:9090
   ui:
     build: 
-      context: https://github.com/CSCfi/swift-browser-ui.git
-    image: swift-browser-ui:devel
-    deploy:
-      mode: replicated
-      replicas: 1
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 5
-        window: 240s
-    env_file: ./envs.txt
+      context: https://github.com/CSCfi/swift-browser-ui.git#v1.0.0-rc2
+    image: swift-browser-ui:production
+    env_file: ./envs.sh
     ports:
       - 8080:8080
 volumes:
