@@ -2,15 +2,18 @@
 set -e
 
 # The scirpt expects the database to have a readily created user called
-# request, and a database called swiftrequest with rights the user
-# request set as the owner.
+# sharing, and a database called swiftsharing with rights the user
+# sharing set as the owner.
 
-psql -v ON_ERROR_STOP=1 --username "request" --dbname "swiftrequest" <<-EOSQL
-    CREATE TABLE IF NOT EXISTS Requests(
+psql -v ON_ERROR_STOP=1 --username "sharing" --dbname "swiftsharing" <<-EOSQL
+    CREATE TABLE IF NOT EXISTS Shares(
         container TEXT,
         container_owner TEXT,
         recipient TEXT,
-        created TIMESTAMP,
+        r_read BOOL,
+        r_write BOOL,
+        sharingdate TIMESTAMP,
+        address TEXT           NOT NULL,
         PRIMARY KEY(container, container_owner, recipient)
     );
     CREATE TABLE IF NOT EXISTS Tokens(
