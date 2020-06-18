@@ -1,0 +1,18 @@
+# swift-browser-ui service description for deploying on Openshift
+# This service file is meant to be used as a production version
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: swiftui
+  labels:
+  app: swiftui
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+  targetPort: 8080
+  protocol: TCP
+  name: web
+  selector:
+  app: swiftui

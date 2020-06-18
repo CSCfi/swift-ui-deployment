@@ -1,0 +1,27 @@
+# swiftui-upload-runner app description for deploying on Openshift
+# This deployment file is meant to be used as a production version
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    role: upload
+  name: upload
+spec:
+  selector:
+    matchLabels:
+      app: upload
+  template:
+    metadata:
+      labels:
+        app: upload
+        role: upload
+    spec:
+      containers:
+        - image: 'cscfi/swiftui-upload-runner:v1.0.0-rc1-staging-0000'
+          imagePullPolicy: Always
+          name: upload
+          ports:
+            - containerPort: 9092
+              name: upload
+              protocol: TCP

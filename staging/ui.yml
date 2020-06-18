@@ -1,27 +1,27 @@
 # swift-browser-ui app description file for deploying on Openshift
-# This deployment file is meant to be used as a production version
+# This deployment file is meant to be used as a staging version
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    role: swiftui
-  name: swiftui
+    role: swiftui-staging
+  name: swiftui-staging
 spec:
   selector:
     matchLabels:
-      app: swiftui
+      app: swiftui-staging
   template:
     metadata:
       labels:
-        app: swiftui
-        role: swiftui
+        app: swiftui-staging
+        role: swiftui-staging
     spec:
       containers:
         - image: 'cscfi/swift-ui:tag'
           imagePullPolicy: Always
-          name: swiftui
+          name: swiftui-staging
           ports:
             - containerPort: 8080
-              name: swiftui
+              name: swiftui-staging
               protocol: TCP

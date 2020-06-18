@@ -1,21 +1,21 @@
 # swift-sharing-request app description file for deploying on Openshift
-# This deployment file is meant to be used as a production version
+# This deployment file is meant to be used as a staging version
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    role: swiftrequest
-  name: swiftrequest
+    role: swiftrequest-staging
+  name: swiftrequest-staging
 spec:
   selector:
     matchLabels:
-      app: swiftrequest
+      app: swiftrequest-staging
   template:
     metadata:
       labels:
-        app: swiftrequest
-        role: swiftrequest
+        app: swiftrequest-staging
+        role: swiftrequest-staging
     spec:
       containers:
         - image: 'cscfi/swift-sharing-request:tag'
@@ -23,5 +23,5 @@ spec:
           name: swiftsharing
           ports:
             - containerPort: 9091
-              name: swiftrequest
+              name: swiftrequest-staging
               protocol: TCP

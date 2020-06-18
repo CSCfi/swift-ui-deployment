@@ -1,0 +1,18 @@
+# swift-x-account-sharing service description for deploying on Openshift
+# This service file is meant to be used as a staging version
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: swiftsharing-staging
+  labels:
+    app: swiftsharing-staging
+spec:
+  type: NodePort
+  ports:
+  - port: 9090
+    targetPort: 9090
+    protocol: TCP
+    name: web
+  selector:
+    app: swiftsharing-staging
