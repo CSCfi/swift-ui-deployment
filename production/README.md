@@ -6,7 +6,7 @@ Apart from the internal database, the services `swift-x-account-sharing`,
 are deployed using images hosted on Docker Hub. The Docker Hub images for the
 production builds are encouraged to use the tagged, versioned builds
 available on the repository. (e.g. `v1.0.0`) Forcing the re-pull of an
-image with a running version is not adviced.
+image with a running version is not advised.
 
 #### internal database setup
 Internal database is created with the Openshift default PostgreSQL image.
@@ -77,7 +77,7 @@ The `swift-x-account-sharing`, `swift-sharing-request`, `swiftui-upload-runner`
 and `swift-browser-ui` services require external routes to operate. These routes
 are used for public facing operations. Setting up the routes is outside the
 scope of this readme. The routes can be chosen at will, but the required ones
-need to be transfered over to the `swift-browser-ui` environment variables so
+need to be transferred over to the `swift-browser-ui` environment variables so
 they can be made discoverable.
 
 #### Production environment upgrade

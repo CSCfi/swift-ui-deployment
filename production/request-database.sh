@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# The scirpt expects the database to have a readily created user called
+# The script expects the database to have a readily created user called
 # request, and a database called swiftrequest with rights the user
 # request set as the owner.
 
