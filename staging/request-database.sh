@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# The scirpt expects the database to have a readily created user called
+# The script expects the database to have a readily created user called
 # sharing, and a database called swiftsharing with rights the user
 # sharing set as the owner.
 

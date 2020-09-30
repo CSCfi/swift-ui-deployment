@@ -78,7 +78,7 @@ The `swift-x-account-sharing`, `swift-sharing-request`, `swiftui-upload-runner`
 and `swift-browser-ui` services require external routes to operate. These routes
 are used for public facing operations. Setting up the routes is outside the
 scope of this readme. The routes can be chosen at will, but the required ones
-need to be transfered over to the `swift-browser-ui` environment variables so
+need to be transferred over to the `swift-browser-ui` environment variables so
 they can be made discoverable.
 
 #### Staging environment upgrade
