@@ -19,11 +19,12 @@ services:
       - 5432
   request:
     build: 
-      context: https://github.com/CSCfi/swift-sharing-request.git#devel
+      context: https://github.com/CSCfi/swift-browser-ui.git#devel
+      dockerfile: dockerfiles/Dockerfile-request
     image: swift-sharing-request-docker:devel
     deploy:
       mode: replicated
-      replicas: 4
+      replicas: 1
       update_config:
         parallelism: 2
         delay: 10s
@@ -39,11 +40,12 @@ services:
       - 9091:9091
   sharing:
     build: 
-      context: https://github.com/CSCfi/swift-x-account-sharing.git#devel
+      context: https://github.com/CSCfi/swift-browser-ui.git#devel
+      dockerfile: dockerfiles/Dockerfile-sharing
     image: swift-x-account-sharing-docker:devel
     deploy:
       mode: replicated
-      replicas: 4
+      replicas: 1
       update_config:
         parallelism: 2
         delay: 10s
@@ -59,11 +61,12 @@ services:
       - 9090:9090
   download:
     build:
-      context: https://github.com/CSCfi/swiftui-upload-runner.git#devel
+      context: https://github.com/CSCfi/swift-browser-ui.git#devel
+      dockerfile: dockerfiles/Dockerfile-runner
     image: swiftui-upload-runner-docker:devel
     deploy:
       mode: replicated
-      replicas: 4
+      replicas: 1
       update_config:
         parallelism: 2
         delay: 10s
@@ -80,7 +83,7 @@ services:
   ui:
     build: 
       context: https://github.com/CSCfi/swift-browser-ui.git#devel
-      dockerfile: Dockerfile-Devel
+      dockerfile: dockerfiles/Dockerfile-ui-devel
     image: swift-browser-ui:devel
     deploy:
       mode: replicated

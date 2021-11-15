@@ -13,14 +13,16 @@ services:
       - 5432
   download:
     build:
-      context: https://github.com/CSCfi/swiftui-upload-runner.git#v0.1.1
-    image: swiftui-upload-runner-docker:prouction
+      context: https://github.com/CSCfi/swift-browser-ui.git
+      dockerfile: dockerfiles/Dockerfile-runner
+    image: swiftui-upload-runner-docker:production
     env_file: ./envs.sh
     ports:
       - 9092:9092
   request:
     build: 
-      context: https://github.com/CSCfi/swift-sharing-request.git#v0.4.2
+      context: https://github.com/CSCfi/swift-browser-ui.git
+      dockerfile: dockerfiles/Dockerfile-request
     image: swift-sharing-request-docker:production
     links:
       - "db:database"
@@ -29,7 +31,8 @@ services:
       - 9091:9091
   sharing:
     build: 
-      context: https://github.com/CSCfi/swift-x-account-sharing.git#v0.5.3
+      context: https://github.com/CSCfi/swift-browser-ui.git
+      dockerfile: dockerfiles/Dockerfile-sharing
     image: swift-x-account-sharing-docker:production
     links:
       - "db:database"
@@ -38,7 +41,8 @@ services:
       - 9090:9090
   ui:
     build: 
-      context: https://github.com/CSCfi/swift-browser-ui.git#v1.0.0-rc2
+      context: https://github.com/CSCfi/swift-browser-ui.git
+      dockerfile: dockerfiles/Dockerfile-ui
     image: swift-browser-ui:production
     env_file: ./envs.sh
     ports:
