@@ -1,0 +1,103 @@
+version: '3.3'
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-postgres-inited
+    image: postgres-swiftui:devel-local-9.6
+    volumes:
+    - data-volume:/swiftbrowser-database
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 240s
+    env_file: ./envs.sh
+    expose:
+      - 5432
+  request:
+    build: 
+      context: $SWIFT_UI_CONTEXT
+      dockerfile: dockerfiles/Dockerfile-request
+    image: swift-sharing-request-docker:devel-local
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 240s
+    links:
+      - "db:database"
+    env_file: ./envs.sh
+    ports:
+      - 9091:9091
+  sharing:
+    build: 
+      context: $SWIFT_UI_CONTEXT
+      dockerfile: dockerfiles/Dockerfile-sharing
+    image: swift-x-account-sharing-docker:devel-local
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 240s
+    links:
+      - "db:database"
+    env_file: ./envs.sh
+    ports:
+      - 9090:9090
+  download:
+    build:
+      context: $SWIFT_UI_CONTEXT
+      dockerfile: dockerfiles/Dockerfile-runner
+    image: swiftui-upload-runner-docker:devel-local
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 240s
+    env_file: ./envs.sh
+    expose:
+      - 9092
+    ports:
+      - 9092:9092
+  ui:
+    build: 
+      context: $SWIFT_UI_CONTEXT
+      dockerfile: dockerfiles/Dockerfile-ui-devel
+    image: swift-browser-ui:devel-local
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 240s
+    env_file: ./envs.sh
+    ports:
+      - 8080:8080
+volumes:
+  data-volume:
