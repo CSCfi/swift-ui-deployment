@@ -1,4 +1,4 @@
-FROM postgres:9.6-alpine
+FROM postgres:13.5-alpine
 
 COPY ./init-project-db.sh /docker-entrypoint-initdb.d/init-user-db.sh
 
