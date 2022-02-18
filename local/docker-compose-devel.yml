@@ -17,6 +17,20 @@ services:
     env_file: ./envs.sh
     expose:
       - 5432
+  dbredis:
+    build:
+      context: .
+      dockerfile: Dockerfile-redis-inited
+    image: redis-swiftui:devel-local-6.2.6
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 240s
+    env_file: ./envs.sh
+    expose:
+      - 6379
   request:
     build: 
       context: $SWIFT_UI_CONTEXT
@@ -83,7 +97,7 @@ services:
   ui:
     build: 
       context: $SWIFT_UI_CONTEXT
-      dockerfile: dockerfiles/Dockerfile-ui-devel
+      dockerfile: dockerfiles/Dockerfile-build-crypt-devel
     image: swift-browser-ui:devel-local
     deploy:
       mode: replicated

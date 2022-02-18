@@ -11,6 +11,14 @@ services:
     env_file: ./envs.sh
     expose:
       - 5432
+  dbredis:
+    build:
+      context: .
+      dockerfile: Dockerfile-redis-inited
+    image: redis-swiftui:devel-local-6.2.6
+    env_file: ./envs.sh
+    expose:
+      - 6379
   download:
     build:
       context: https://github.com/CSCfi/swift-browser-ui.git
@@ -40,7 +48,7 @@ services:
     ports:
       - 9090:9090
   ui:
-    build: 
+    build:
       context: https://github.com/CSCfi/swift-browser-ui.git
       dockerfile: dockerfiles/Dockerfile-ui
     image: swift-browser-ui:production
