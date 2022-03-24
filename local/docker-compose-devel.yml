@@ -98,6 +98,8 @@ services:
     build: 
       context: $SWIFT_UI_CONTEXT
       dockerfile: dockerfiles/Dockerfile-build-crypt-devel
+      args:
+          OIDC_ENABLED: True
     image: swift-browser-ui:devel-local
     deploy:
       mode: replicated
@@ -112,6 +114,6 @@ services:
         window: 240s
     env_file: ./envs.sh
     ports:
-      - 8080:8080
+      - 8000:8080
 volumes:
   data-volume:
