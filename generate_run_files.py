@@ -38,6 +38,12 @@ SWIFT_UI_REDIS_PASSWORD={pwd_redis}
 UPLOAD_RUNNER_LOG_LEVEL=10
 LOG_LEVEL=DEBUG
 BROWSER_DEBUG=1
+OS_ACCEPTED_ROLES=admin;object_store_user
+OIDC_ENABLED=True
+OIDC_URL=https://oidc.provider.url.com
+OIDC_CLIENT_ID=to-be-set
+OIDC_CLIENT_SECRET=to-be-set
+OIDC_REDIRECT_URIS=http://localhost:8000/login/oidc-redirect
 """,
         )
     print("Generating redis configuration...")

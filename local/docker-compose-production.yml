@@ -51,6 +51,8 @@ services:
     build: 
       context: $SWIFT_UI_CONTEXT
       dockerfile: dockerfiles/Dockerfile-ui
+      args:
+          OIDC_ENABLED: True
     image: swift-browser-ui:production
     env_file: ./envs.sh
     ports:
